@@ -1,4 +1,4 @@
-package sg.edu.np.mad.practical3;
+package sg.edu.np.mad.madpractical3;
 
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         //Initialize a new User Object
         User user = new User("John Doe","MAD Developer", 1,false);
