@@ -1,11 +1,13 @@
 package sg.edu.np.mad.madpractical3;
 
+import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.content.Intent;
+
+import java.util.Random; // for random int generator
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,45 +28,43 @@ public class ListActivity extends AppCompatActivity {
             return insets;
         });
 
-        ImageView imageButton = findViewById(R.id.imagebutton);
+        ImageView imageView = findViewById(R.id.ivProfile);
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        // Set an onClickListener for the ImageView
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if the clicked view is the ImageButton
-                if (v == imageButton) {
+                // Generate a random integer
+                int randomInteger = generateRandomInteger();
 
-                    // Build and show the AlertDialog
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-
-                    builder.setTitle("Profile");
-                    builder.setMessage("MADness");
-
-                    // Add buttons (optional)
-                    builder.setPositiveButton("View", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Handle positive button click (e.g., dismiss dialog)
-
-                            Intent MainActivity = new Intent(ListActivity.this, MainActivity.class);
-
-                            startActivity(MainActivity);
-                        }
-                    });
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Handle negative button click (e.g., dismiss dialog)
-                            dialog.dismiss();
-                        }
-                    });
-
-                    // Create and show the dialog
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                // Create and show the AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
+                builder.setTitle("Profile")
+                        .setMessage("MADness")
+                        .setPositiveButton("View", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Launch MainActivity and pass the random integer
+                                Intent intent = new Intent(ListActivity.this, MainActivity.class);
+                                intent.putExtra("randomInteger", randomInteger);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss(); // Dismiss the dialog
+                            }
+                        })
+                        .show(); // Show the AlertDialog
             }
         });
+    }
+
+    // Method to generate a random integer
+    private int generateRandomInteger() {
+        Random random = new Random();
+        // return random.nextInt();
+        return random.nextInt(900000) + 100000; // Generate a random integer between 100000 and 999999, to see layout
     }
 }
